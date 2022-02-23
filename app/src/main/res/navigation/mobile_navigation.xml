@@ -23,9 +23,21 @@
         android:name="com.geektech.newsapp40.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.geektech.newsapp40.NewsFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/onBoardFragment"
+        android:name="com.geektech.newsapp40.OnBoardFragment"
+        android:label="fragment_on_board"
+        tools:layout="@layout/fragment_on_board" />
+
 </navigation>

@@ -1,4 +1,4 @@
-package com.geektech.newsapp40;
+package com.geektech.newsapp40.ui.fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,37 +15,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.geektech.newsapp40.basic.BaseFragment;
 import com.geektech.newsapp40.databinding.FragmentNewsBinding;
+import com.geektech.newsapp40.databinding.FragmentProfileBinding;
 
 
-public class NewsFragment extends Fragment {
-    private FragmentNewsBinding binding;
+public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
 
-    ActivityResultLauncher<String> setImage = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-        @Override
-        public void onActivityResult(Uri result) {
-            Glide.with(binding.imageUsers).load(result).into(binding.imageUsers);
-
-        }
-    });
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentNewsBinding.inflate(getLayoutInflater());
-        return binding.getRoot();
+    public FragmentProfileBinding bind() {
+        return FragmentProfileBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.imageUsers.setOnClickListener(v -> {
-            setImage.launch("image/*");
-
-        });
+        initListener();
     }
 
-    private void galleryIntent() {
+    private void initListener() {
         ActivityResultLauncher<String> setImage = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
@@ -53,5 +42,10 @@ public class NewsFragment extends Fragment {
 
             }
         });
+        binding.imageUsers.setOnClickListener(view -> {
+            setImage.launch("image/*");
+        });
     }
+
+
 }

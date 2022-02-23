@@ -1,53 +1,60 @@
 package com.geektech.newsapp40.ui.home;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.geektech.newsapp40.NewsFragment;
+import com.geektech.newsapp40.NewsModel.ClientModel;
+import com.geektech.newsapp40.NewsModel.NewsModel;
 import com.geektech.newsapp40.R;
+import com.geektech.newsapp40.adapter.NewsAdapter;
+import com.geektech.newsapp40.basic.BaseFragment;
 import com.geektech.newsapp40.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
-    private FragmentHomeBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
+    private NewsAdapter newsAdapter;
+    ArrayList<NewsModel> newsModelArrayList = new ArrayList<>();
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public FragmentHomeBinding bind() {
+        return FragmentHomeBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.fab.setOnClickListener(v -> {
-            openFragment();
-
+        initListeners();
+        setAdaptersList();
+        getParentFragmentManager().setFragmentResultListener("rk_news", getViewLifecycleOwner(), new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                NewsModel news = (NewsModel) result.getSerializable("news");
+                newsAdapter.addItem(news);
+                Log.e("Home", String.format("text: " + news.getTitle() + " : " + news.getCreatedAt()));
+            }
         });
     }
 
-    private void openFragment() {
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-        navController.navigate(R.id.newsFragment);
+    private void setAdaptersList() {
+        newsModelArrayList = ClientModel.getNewsList();
+        newsAdapter = new NewsAdapter();
+        newsAdapter.setNewsList(newsModelArrayList);
+        binding.recyclerHome.setAdapter(newsAdapter);
+    }
 
+    private void initListeners() {
+        binding.fab.setOnClickListener(view -> {
+            Navigation.findNavController(requireView()).navigate(R.id.newsFragment);
+        });
     }
 }
