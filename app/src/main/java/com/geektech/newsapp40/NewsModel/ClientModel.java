@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public class ClientModel {
 
-    public static ArrayList<NewsModel> newsList = new ArrayList<>();
+    //База данных OnBoard
+    public static int[] imageList = new int[]{R.drawable.pngwing_com_2_, R.drawable.pngwing_com_3_, R.drawable.pngwing_com_1_};
+    public static String[] titles = new String[]{"Fast Food", "Fast Delivery", "Easy Payment"};
     public static String[] titleDescription = new String[]{"Шаганэ ты моя, Шаганэ!\n" +
             "Потому, что я с севера, что ли,\n" +
             "Я готов рассказать тебе поле,\n" +
@@ -21,6 +23,8 @@ public class ClientModel {
             "Я нисколько не чувствую боли.\n" +
             "Я готов рассказать тебе поле."};
 
+    //Лист
+    public static ArrayList<NewsModel> newsList = new ArrayList<>();
     public static ArrayList<NewsModel> getNewsList() {
         newsList.add(new NewsModel("Asd", "243523454325"));
         newsList.add(new NewsModel("Asd", "243523454325"));

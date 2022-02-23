@@ -1,28 +1,22 @@
-package com.geektech.newsapp40;
+package com.geektech.newsapp40.ui.onboard;
 
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.telephony.mbms.MbmsErrors;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
+import com.geektech.newsapp40.R;
+import com.geektech.newsapp40.interfaces.OnClick;
+import com.geektech.newsapp40.ui.animate.ZoomOutPageTransformer;
 import com.geektech.newsapp40.adapter.BoardAdapter;
 import com.geektech.newsapp40.basic.BaseFragment;
-import com.geektech.newsapp40.databinding.FragmentNewsBinding;
 import com.geektech.newsapp40.databinding.FragmentOnBoardBinding;
-import com.geektech.newsapp40.databinding.ItemBoardBinding;
-import com.google.android.material.button.MaterialButton;
 
 
 public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implements OnClick {

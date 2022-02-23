@@ -1,4 +1,4 @@
-package com.geektech.newsapp40;
+package com.geektech.newsapp40.ui.animate;
 
 import android.view.View;
 
