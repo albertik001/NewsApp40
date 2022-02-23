@@ -7,6 +7,7 @@
     tools:context=".ui.onboard.OnBoardFragment">
 
     <TextView
+        android:fontFamily="@font/nova"
         android:id="@+id/skipped"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

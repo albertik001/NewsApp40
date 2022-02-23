@@ -19,6 +19,7 @@
             android:layout_marginTop="100dp" />
 
         <TextView
+            android:fontFamily="@font/nova"
             android:id="@+id/text_theme_board"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
 
 
         <TextView
+            android:fontFamily="@font/nova"
             android:id="@+id/text_board_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +46,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_get_start"
+        android:fontFamily="@font/nova"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
