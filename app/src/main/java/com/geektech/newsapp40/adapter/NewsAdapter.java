@@ -19,10 +19,13 @@ import com.geektech.newsapp40.ui.fragments.NewsFragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolder> {
-    Context context;
-    ArrayList<NewsModel> newsList;
+    @SuppressLint("StaticFieldLeak")
+    public static Context context;
+    ArrayList<NewsModel> newsList = new ArrayList<>();
+
     @NonNull
     @Override
     public CountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,11 +36,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
     @Override
     public void onBindViewHolder(@NonNull CountViewHolder holder, int position) {
         holder.bind(newsList.get(position));
-        if (position % 2 == 0) {
-            holder.binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
-        } else {
-            holder.binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray));
-        }
+
     }
 
     @Override
@@ -47,8 +46,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
 
     public void addItem(NewsModel news) {
         newsList.add(0, news);
-        notifyItemInserted(newsList.lastIndexOf(news));
+        notifyItemInserted(0);
+
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void addItems(List<NewsModel> newsModelList) {
+        newsList = (ArrayList<NewsModel>) newsModelList;
+        notifyDataSetChanged();
+    }
+
 
     public void setNewsList(ArrayList<NewsModel> newsList) {
         this.newsList = newsList;
@@ -67,6 +74,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
             Date date = Calendar.getInstance().getTime();
             binding.tvTimeItem.setText(date.toString());
             binding.tvItemSave.setText(newsModel.getTitle());
+            if (getAdapterPosition() % 2 == 0) {
+                binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            } else {
+                binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+            }
         }
     }
 

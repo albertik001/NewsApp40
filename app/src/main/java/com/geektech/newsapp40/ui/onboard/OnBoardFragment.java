@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.View;
 
+import com.geektech.newsapp40.data.Prefs;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.interfaces.OnClick;
 import com.geektech.newsapp40.ui.animate.ZoomOutPageTransformer;
@@ -51,9 +52,7 @@ public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implem
                     binding.skipped.setVisibility(View.GONE);
                 } else {
                     binding.skipped.setVisibility(View.VISIBLE);
-                    binding.skipped.setOnClickListener(view1 -> {
-                        onClick();
-                    });
+                    binding.skipped.setOnClickListener(view1 -> onClick());
                 }
             }
         });
@@ -71,6 +70,8 @@ public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implem
 
     @Override
     public void onClick() {
+        Prefs prefs = new Prefs(requireContext());
+        prefs.saveBoardState();
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.navigateUp();
     }

@@ -13,7 +13,7 @@ import com.geektech.newsapp40.databinding.ItemBoardBinding;
 import com.geektech.newsapp40.interfaces.OnClick;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.BoardViewHolder> {
-    private OnClick onClick;
+    private final OnClick onClick;
 
 
     public BoardAdapter(OnClick onClick) {
@@ -37,7 +37,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.BoardViewHol
     }
 
     public class BoardViewHolder extends RecyclerView.ViewHolder {
-        private ItemBoardBinding binding;
+        private final ItemBoardBinding binding;
 
         public BoardViewHolder(@NonNull ItemBoardBinding binding) {
             super(binding.getRoot());
@@ -48,6 +48,10 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.BoardViewHol
             binding.textThemeBoard.setText(ClientModel.titles[position]);
             binding.textBoardDescription.setText(ClientModel.titleDescription[position]);
             binding.imageBoard.setImageResource(ClientModel.imageList[position]);
+            visibles(position);
+        }
+
+        private void visibles(int position) {
             if (position == getItemCount() - 1) {
                 binding.btnGetStart.setVisibility(View.VISIBLE);
                 binding.btnGetStart.setOnClickListener(view -> {

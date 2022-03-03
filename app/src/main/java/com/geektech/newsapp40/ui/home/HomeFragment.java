@@ -7,19 +7,17 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentResultListener;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.geektech.newsapp40.NewsModel.ClientModel;
+import com.geektech.newsapp40.data.App;
 import com.geektech.newsapp40.NewsModel.NewsModel;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.adapter.NewsAdapter;
 import com.geektech.newsapp40.basic.BaseFragment;
 import com.geektech.newsapp40.databinding.FragmentHomeBinding;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     private NewsAdapter newsAdapter;
@@ -39,17 +37,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 NewsModel news = (NewsModel) result.getSerializable("news");
-                newsAdapter.addItem(news);
-                Log.e("Home", String.format("text: " + news.getTitle() + " : " + news.getCreatedAt()));
+                Log.e("Home", "text: " + news.getTitle() + " : " + news.getCreatedAt());
             }
         });
     }
 
     private void setAdaptersList() {
-        newsModelArrayList = ClientModel.getNewsList();
         newsAdapter = new NewsAdapter();
         newsAdapter.setNewsList(newsModelArrayList);
         binding.recyclerHome.setAdapter(newsAdapter);
+        List<NewsModel> newsList = App.dataBase.newsDao().getAllNews();
+        newsAdapter.addItems(newsList);
     }
 
     private void initListeners() {

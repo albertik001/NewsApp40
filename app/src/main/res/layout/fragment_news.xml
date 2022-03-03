@@ -3,18 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".ui.fragments.NewsFragment">
 
-    <EditText
-        android:id="@+id/et_title"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginHorizontal="24dp"
+        android:layout_gravity="center"
+        android:id="@+id/name_text_message"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите новость!"
-        android:inputType="textCapSentences" />
+        android:layout_marginBottom="120dp"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/news_require"
+            android:inputType="textImeMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
+        android:paddingVertical="12dp"
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

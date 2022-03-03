@@ -3,6 +3,7 @@
     package="com.geektech.newsapp40">
 
     <application
+        android:name=".data.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,8 +12,7 @@
         android:theme="@style/Theme.NewsApp40">
         <activity
             android:name=".ui.activity.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

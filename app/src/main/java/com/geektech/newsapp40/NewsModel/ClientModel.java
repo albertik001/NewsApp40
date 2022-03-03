@@ -22,16 +22,10 @@ public class ClientModel {
             "Если хочешь, на палец вяжи —\n" +
             "Я нисколько не чувствую боли.\n" +
             "Я готов рассказать тебе поле."};
-
     //Лист
     public static ArrayList<NewsModel> newsList = new ArrayList<>();
+
     public static ArrayList<NewsModel> getNewsList() {
-        newsList.add(new NewsModel("Asd", "243523454325"));
-        newsList.add(new NewsModel("Asd", "243523454325"));
-        newsList.add(new NewsModel("Asd", "243523454325"));
-        newsList.add(new NewsModel("Asd", "243523454325"));
-        newsList.add(new NewsModel("Asd", "243523454325"));
-        newsList.add(new NewsModel("Asd", "243523454325"));
         return newsList;
     }
 

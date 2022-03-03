@@ -1,4 +1,4 @@
-package com.geektech.newsapp40;
+package com.geektech.newsapp40.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,8 +15,8 @@ public class Prefs {
         preferences.edit().putString("username", username).apply();
     }
 
-    public String isUsernameProfile(String s) {
-        return preferences.getString("username", "null");
+    public String isUsernameProfile() {
+        return preferences.getString("username", "");
     }
 
     public void saveBoardState() {
@@ -32,6 +32,12 @@ public class Prefs {
     }
 
     public String isImageUsers() {
-        return preferences.getString("imageUsers", "null");
+        return preferences.getString("imageUsers", "");
+    }
+
+    public void prefsCash() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
     }
 }
