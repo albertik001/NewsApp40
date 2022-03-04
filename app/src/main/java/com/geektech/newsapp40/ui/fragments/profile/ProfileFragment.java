@@ -1,19 +1,18 @@
-package com.geektech.newsapp40.ui.fragments;
+package com.geektech.newsapp40.ui.fragments.profile;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-
 import com.bumptech.glide.Glide;
+import com.geektech.newsapp40.base.BaseFragment;
 import com.geektech.newsapp40.data.Prefs;
-import com.geektech.newsapp40.basic.BaseFragment;
 import com.geektech.newsapp40.databinding.FragmentProfileBinding;
 
 import java.util.Objects;
@@ -33,7 +32,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
         super.onViewCreated(view, savedInstanceState);
         initListener();
         prefs = new Prefs(requireContext());
-        if (prefs.isUsernameProfile()!= null && prefs.isImageUsers() != null){
+        if (prefs.isUsernameProfile() != null && prefs.isImageUsers() != null) {
             prefsBase(prefs);
         }
     }

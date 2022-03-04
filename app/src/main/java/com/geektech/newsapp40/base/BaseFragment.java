@@ -1,4 +1,4 @@
-package com.geektech.newsapp40.basic;
+package com.geektech.newsapp40.base;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,8 @@ import androidx.viewbinding.ViewBinding;
 
 public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     public VB binding;
-   public abstract VB bind();
+
+    public abstract VB bind();
 
     @Nullable
     @Override

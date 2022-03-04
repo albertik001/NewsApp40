@@ -8,35 +8,35 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.geektech.newsapp40.ui.home.HomeFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.geektech.newsapp40.ui.dashboard.DashboardFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.geektech.newsapp40.ui.notifications.NotificationsFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.geektech.newsapp40.ui.fragments.ProfileFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.geektech.newsapp40.ui.fragments.NewsFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/onBoardFragment"
-        android:name="com.geektech.newsapp40.ui.onboard.OnBoardFragment"
+        android:name="com.geektech.newsapp40.ui.fragments.onboard.OnBoardFragment"
         android:label="fragment_on_board"
         tools:layout="@layout/fragment_on_board" />
 

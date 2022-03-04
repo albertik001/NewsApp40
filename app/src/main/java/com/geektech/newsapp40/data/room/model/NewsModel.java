@@ -1,4 +1,4 @@
-package com.geektech.newsapp40.NewsModel;
+package com.geektech.newsapp40.data.room.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -6,20 +6,22 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "name_news")
+@Entity
 public class NewsModel implements Serializable {
-
     @PrimaryKey(autoGenerate = true)
     int id;
-
     @ColumnInfo(name = "title")
     String title;
-
     @ColumnInfo(name = "created_at")
-    String createdAt;
-
+    long createdAt;
     @ColumnInfo(name = "description")
     String description;
+
+    public NewsModel(String title, long createdAt, String description) {
+        this.title = title;
+        this.createdAt = createdAt;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -37,26 +39,19 @@ public class NewsModel implements Serializable {
         this.title = title;
     }
 
-    public String getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
-
 
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public NewsModel(String title, String createdAt, String description) {
-        this.title = title;
-        this.createdAt = createdAt;
         this.description = description;
     }
 }

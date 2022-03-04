@@ -1,6 +1,7 @@
-package com.geektech.newsapp40.ui.onboard;
+package com.geektech.newsapp40.ui.fragments.onboard;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -9,15 +10,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.View;
-
-import com.geektech.newsapp40.data.Prefs;
 import com.geektech.newsapp40.R;
-import com.geektech.newsapp40.interfaces.OnClick;
-import com.geektech.newsapp40.ui.animate.ZoomOutPageTransformer;
 import com.geektech.newsapp40.adapter.BoardAdapter;
-import com.geektech.newsapp40.basic.BaseFragment;
+import com.geektech.newsapp40.base.BaseFragment;
+import com.geektech.newsapp40.data.Prefs;
 import com.geektech.newsapp40.databinding.FragmentOnBoardBinding;
+import com.geektech.newsapp40.utils.interfaces.OnClick;
+import com.geektech.newsapp40.ui.animate.ZoomOutPageTransformer;
 
 
 public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implements OnClick {

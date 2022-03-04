@@ -6,15 +6,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.geektech.newsapp40.NewsModel.NewsModel;
+import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.databinding.ItemNewsBinding;
-import com.geektech.newsapp40.ui.activity.MainActivity;
-import com.geektech.newsapp40.ui.fragments.NewsFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;

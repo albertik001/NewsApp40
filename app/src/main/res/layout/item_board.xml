@@ -45,10 +45,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_get_start"
-        android:fontFamily="@font/nova"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
+        android:fontFamily="@font/nova"
         android:text="Get Started"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,4 +1,4 @@
-package com.geektech.newsapp40.ui.dashboard;
+package com.geektech.newsapp40.ui.fragments.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
