@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.geektech.newsapp40.NewsModel.ClientModel;
-
+import com.geektech.newsapp40.data.local.ClientModel;
 import com.geektech.newsapp40.databinding.ItemBoardBinding;
-import com.geektech.newsapp40.interfaces.OnClick;
+import com.geektech.newsapp40.utils.interfaces.OnClick;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.BoardViewHolder> {
     private final OnClick onClick;

@@ -1,5 +1,6 @@
-package com.geektech.newsapp40.NewsModel;
+package com.geektech.newsapp40.data.local;
 
+import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.R;
 
 import java.util.ArrayList;

@@ -38,6 +38,6 @@ public class Prefs {
     public void prefsCash() {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 }

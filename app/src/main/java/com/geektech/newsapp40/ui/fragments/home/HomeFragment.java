@@ -1,4 +1,4 @@
-package com.geektech.newsapp40.ui.home;
+package com.geektech.newsapp40.ui.fragments.home;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,22 +6,20 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
 
-import com.geektech.newsapp40.data.App;
-import com.geektech.newsapp40.NewsModel.NewsModel;
+import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.adapter.NewsAdapter;
-import com.geektech.newsapp40.basic.BaseFragment;
+import com.geektech.newsapp40.base.BaseFragment;
+import com.geektech.newsapp40.utils.app.App;
 import com.geektech.newsapp40.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
-    private NewsAdapter newsAdapter;
     ArrayList<NewsModel> newsModelArrayList = new ArrayList<>();
+    private NewsAdapter newsAdapter;
 
     @Override
     public FragmentHomeBinding bind() {
@@ -33,26 +31,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         super.onViewCreated(view, savedInstanceState);
         initListeners();
         setAdaptersList();
-        getParentFragmentManager().setFragmentResultListener("rk_news", getViewLifecycleOwner(), new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                NewsModel news = (NewsModel) result.getSerializable("news");
-                Log.e("Home", "text: " + news.getTitle() + " : " + news.getCreatedAt());
-            }
+        getParentFragmentManager().setFragmentResultListener("rk_news", getViewLifecycleOwner(), (requestKey, result) -> {
+            NewsModel news = (NewsModel) result.getSerializable("news");
+            Log.e("Home", "text: " + news.getTitle() + " : " + news.getCreatedAt());
         });
     }
 
     private void setAdaptersList() {
         newsAdapter = new NewsAdapter();
-        newsAdapter.setNewsList(newsModelArrayList);
         binding.recyclerHome.setAdapter(newsAdapter);
-        List<NewsModel> newsList = App.dataBase.newsDao().getAllNews();
-        newsAdapter.addItems(newsList);
+        App.database.newsDao().getAll().observe(getViewLifecycleOwner(), newsModels -> {
+            newsAdapter.addItems(newsModels);
+        });
     }
 
     private void initListeners() {
-        binding.fab.setOnClickListener(view -> {
-            Navigation.findNavController(requireView()).navigate(R.id.newsFragment);
-        });
+        binding.fab.setOnClickListener(view -> Navigation.findNavController(requireView()).navigate(R.id.newsFragment));
     }
 }
