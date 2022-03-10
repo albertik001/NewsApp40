@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
+public class    NewsFragment extends BaseFragment<FragmentNewsBinding> {
 
     @Override
     public FragmentNewsBinding bind() {

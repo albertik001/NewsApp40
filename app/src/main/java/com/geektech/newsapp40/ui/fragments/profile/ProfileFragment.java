@@ -15,8 +15,6 @@ import com.geektech.newsapp40.base.BaseFragment;
 import com.geektech.newsapp40.data.Prefs;
 import com.geektech.newsapp40.databinding.FragmentProfileBinding;
 
-import java.util.Objects;
-
 
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
     private Prefs prefs;
@@ -30,11 +28,26 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initListener();
         prefs = new Prefs(requireContext());
-        if (prefs.isUsernameProfile() != null && prefs.isImageUsers() != null) {
-            prefsBase(prefs);
-        }
+        initListener();
+        prefsBase(prefs);
+        binding.etUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                prefs.saveUsernameProfile(binding.etUsername.getText().toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
     }
 
     private void prefsBase(Prefs prefs) {
@@ -48,22 +61,6 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
             prefs.saveImageUsers(result);
         });
         binding.imageUsers.setOnClickListener(view -> setImage.launch("image/*"));
-        binding.etUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                prefs.saveUsernameProfile(Objects.requireNonNull(binding.etUsername.getText()).toString());
-            }
-        });
     }
 
 

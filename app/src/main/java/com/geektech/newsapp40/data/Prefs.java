@@ -1,5 +1,6 @@
 package com.geektech.newsapp40.data;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,8 +12,8 @@ public class Prefs {
         preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
     }
 
-    public void saveUsernameProfile(String username) {
-        preferences.edit().putString("username", username).apply();
+    public void saveUsernameProfile(String name) {
+        preferences.edit().putString("username", name).apply();
     }
 
     public String isUsernameProfile() {
@@ -36,8 +37,8 @@ public class Prefs {
     }
 
     public void prefsCash() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("username").apply();
     }
+
 }
