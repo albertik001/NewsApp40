@@ -14,7 +14,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:contentDescription="@string/todoimage"
-        android:src="@drawable/ic_baseline_account_circle_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
