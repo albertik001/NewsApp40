@@ -11,9 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.base.BaseFragment;
 import com.geektech.newsapp40.data.Prefs;
 import com.geektech.newsapp40.databinding.FragmentProfileBinding;
+
+import java.util.Objects;
 
 
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
@@ -31,6 +34,11 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
         prefs = new Prefs(requireContext());
         initListener();
         prefsBase(prefs);
+        textListener();
+
+    }
+
+    private void textListener() {
         binding.etUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -39,20 +47,25 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                prefs.saveUsernameProfile(binding.etUsername.getText().toString());
+
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                prefs.saveUsernameProfile(Objects.requireNonNull(binding.etUsername.getText()).toString());
             }
         });
-
     }
 
     private void prefsBase(Prefs prefs) {
-        binding.etUsername.setText(prefs.isUsernameProfile());
-        Glide.with(binding.imageUsers).load(prefs.isImageUsers()).circleCrop().into(binding.imageUsers);
+        if (prefs.isImageUsers() != null && prefs.isUsernameProfile() != null) {
+            binding.etUsername.setText(prefs.isUsernameProfile());
+            Glide.with(binding.imageUsers).load(prefs.isImageUsers()).circleCrop().into(binding.imageUsers);
+        }
+        if (prefs.isImageUsers()==null){
+            binding.imageUsers.setImageResource(R.drawable.pngwing_com_1_);
+        }
     }
 
     private void initListener() {

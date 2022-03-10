@@ -8,17 +8,17 @@ import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.geektech.newsapp40.data.room.model.NewsModel;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.base.BaseFragment;
-import com.geektech.newsapp40.utils.app.App;
+import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.databinding.FragmentNewsBinding;
+import com.geektech.newsapp40.utils.app.App;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
-public class    NewsFragment extends BaseFragment<FragmentNewsBinding> {
+public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
 
     @Override
     public FragmentNewsBinding bind() {
@@ -32,12 +32,19 @@ public class    NewsFragment extends BaseFragment<FragmentNewsBinding> {
     }
 
     private void initListener() {
-        binding.btnSave.setOnClickListener(view -> save());
+        binding.btnSave.setOnClickListener(view -> {
+            if (Objects.requireNonNull(binding.etTitle.getText()).toString().isEmpty()) {
+                YoYo.with(Techniques.Bounce)
+                        .duration(400)
+                        .repeat(1)
+                        .playOn(binding.nameTextMessage);
+                binding.etTitle.setError("Заполните поле и повторите еще раз...");
+            } else save();
+        });
     }
 
     private void save() {
         String text = Objects.requireNonNull(binding.etTitle.getText()).toString();
-        Date date = Calendar.getInstance().getTime();
         NewsModel news = new NewsModel(text, System.currentTimeMillis(), "ALbert");
         Bundle bundle = new Bundle();
         bundle.putSerializable("news", news);

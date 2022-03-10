@@ -33,11 +33,12 @@ public class Prefs {
     }
 
     public String isImageUsers() {
-        return preferences.getString("imageUsers", "");
+        return preferences.getString("imageUsers", null);
     }
 
     public void prefsCash() {
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("imageUsers").apply();
         editor.remove("username").apply();
     }
 

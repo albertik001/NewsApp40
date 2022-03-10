@@ -20,7 +20,7 @@ import com.geektech.newsapp40.ui.animate.ZoomOutPageTransformer;
 
 
 public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implements OnClick {
-
+    Prefs prefs;
     @Override
     public FragmentOnBoardBinding bind() {
         return FragmentOnBoardBinding.inflate(getLayoutInflater());
@@ -30,6 +30,7 @@ public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        prefs = new Prefs(requireActivity());
         initAdapters();
         viewPagerCallBack();
         backPressed();
@@ -69,7 +70,6 @@ public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implem
 
     @Override
     public void onClick() {
-        Prefs prefs = new Prefs(requireContext());
         prefs.saveBoardState();
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.navigateUp();
