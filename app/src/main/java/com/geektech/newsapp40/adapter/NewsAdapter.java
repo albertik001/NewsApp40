@@ -9,14 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.R;
+import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.databinding.ItemNewsBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolder> {
     @SuppressLint("StaticFieldLeak")
@@ -41,11 +41,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
         return newsList.size();
     }
 
-    public void addItem(NewsModel news) {
+/*    public void addItem(NewsModel news) {
         newsList.add(0, news);
         notifyItemInserted(0);
 
-    }
+    }*/
 
     @SuppressLint("NotifyDataSetChanged")
     public void addItems(List<NewsModel> newsModelList) {
@@ -54,10 +54,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
     }
 
 
-    public void setNewsList(ArrayList<NewsModel> newsList) {
+/*    public void setNewsList(ArrayList<NewsModel> newsList) {
         this.newsList = newsList;
         notifyItemInserted(0);
-    }
+    }*/
 
     static class CountViewHolder extends RecyclerView.ViewHolder {
         private final ItemNewsBinding binding;
@@ -67,9 +67,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
             this.binding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(NewsModel newsModel) {
-            Date date = Calendar.getInstance().getTime();
-            binding.tvTimeItem.setText(date.toString());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss, dd MMM yyyy", Locale.ROOT);
+            String date = String.valueOf(simpleDateFormat.format(newsModel.getCreatedAt()));
+            binding.tvTimeItem.setText(date);
             binding.tvItemSave.setText(newsModel.getTitle());
             if (getAdapterPosition() % 2 == 0) {
                 binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));

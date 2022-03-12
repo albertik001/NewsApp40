@@ -2,6 +2,7 @@ package com.geektech.newsapp40.ui.fragments.news;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,10 @@ import com.geektech.newsapp40.base.BaseFragment;
 import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.databinding.FragmentNewsBinding;
 import com.geektech.newsapp40.utils.app.App;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -46,11 +51,28 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
     private void save() {
         String text = Objects.requireNonNull(binding.etTitle.getText()).toString();
         NewsModel news = new NewsModel(text, System.currentTimeMillis(), "ALbert");
+        saveToFirestore(news);
         Bundle bundle = new Bundle();
         bundle.putSerializable("news", news);
         getParentFragmentManager().setFragmentResult("rk_news", bundle);
         App.database.newsDao().insert(news);
-        close();
+    }
+
+    private void saveToFirestore(NewsModel newsModel) {
+        FirebaseFirestore.getInstance()
+                .collection("news")
+                .add(newsModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if (task.isSuccessful()) {
+                    close();
+                    Toast.makeText(getContext(), "Успешено", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     private void close() {
