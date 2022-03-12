@@ -39,5 +39,10 @@
         android:name="com.geektech.newsapp40.ui.fragments.onboard.OnBoardFragment"
         android:label="fragment_on_board"
         tools:layout="@layout/fragment_on_board" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.geektech.newsapp40.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 
 </navigation>

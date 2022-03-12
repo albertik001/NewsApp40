@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
@@ -41,14 +39,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         prefs = new Prefs(this);
-        if (!prefs.isBoardShow()) {
+        if (prefs.isRegisterShow()) {
+            navController.navigate(R.id.registerFragment);
+        } else if (!prefs.isBoardShow()) {
             navController.navigate(R.id.onBoardFragment);
         }
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if (navDestination.getId() == R.id.onBoardFragment) {
+                if (navDestination.getId() == R.id.onBoardFragment || navDestination.getId() == R.id.registerFragment) {
                     navView.setVisibility(View.GONE);
                     Objects.requireNonNull(getSupportActionBar()).hide();
                 } else {

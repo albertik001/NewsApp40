@@ -32,6 +32,8 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         prefs = new Prefs(requireContext());
+        binding.etUsername.setText(prefs.isUsernameProfile());
+
         initListener();
         prefsBase(prefs);
         textListener();
@@ -47,20 +49,18 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                prefs.saveUsernameProfile((binding.etUsername.getText()).toString());
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                prefs.saveUsernameProfile(Objects.requireNonNull(binding.etUsername.getText()).toString());
             }
         });
     }
 
     private void prefsBase(Prefs prefs) {
-        if (prefs.isImageUsers() != null && prefs.isUsernameProfile() != null) {
-            binding.etUsername.setText(prefs.isUsernameProfile());
+        if (prefs.isImageUsers() != null  ) {
             Glide.with(binding.imageUsers).load(prefs.isImageUsers()).circleCrop().into(binding.imageUsers);
         }
         if (prefs.isImageUsers()==null){
