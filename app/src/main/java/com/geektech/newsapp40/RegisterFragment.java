@@ -7,7 +7,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.geektech.newsapp40.base.BaseFragment;
@@ -18,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthActionCodeException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -31,6 +29,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     private static Prefs prefs;
     private static PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     FirebaseAuth mAuth;
+
     @Override
     public FragmentRegisterBinding bind() {
         return FragmentRegisterBinding.inflate(getLayoutInflater());
@@ -42,7 +41,6 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
         init();
         initListener();
         createCallback();
-
     }
 
     private void init() {
@@ -54,12 +52,12 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
         binding.login.setOnClickListener(view1 -> {
             String phone = binding.number.getText().toString().trim();
             if (TextUtils.isEmpty(phone)) {
-                binding.code.setError("Ошибка");
-                return;
+                binding.number.setError("Поле пустое");
+            } else {
+                register(phone);
+                binding.login.setVisibility(View.GONE);
+                binding.okey.setVisibility(View.VISIBLE);
             }
-            register(phone);
-            binding.login.setVisibility(View.GONE);
-            binding.okey.setVisibility(View.VISIBLE);
         });
     }
 
@@ -80,17 +78,18 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
                 super.onCodeSent(s, forceResendingToken);
                 binding.okey.setOnClickListener(view -> {
                     initcode(s);
+
                 });
             }
 
             private void initcode(String s) {
                 String code = binding.code.getText().toString().trim();
                 if (TextUtils.isEmpty(code)) {
-                    binding.code.setError("Ошибка");
-                    return;
+                    binding.code.setError("Поле пустое");
+                } else {
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(s, code);
+                    signInWithPhoneAuthCredential(credential);
                 }
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(s, code);
-                signInWithPhoneAuthCredential(credential);
             }
         };
     }
@@ -99,10 +98,10 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     public void register(String phoneNumber) {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(requireActivity())                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .setPhoneNumber(phoneNumber)
+                        .setTimeout(60L, TimeUnit.SECONDS)
+                        .setActivity(requireActivity())
+                        .setCallbacks(mCallbacks)
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
@@ -113,19 +112,15 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
                             prefs.saveRegisterFragment();
-                            NavController navController = Navigation.findNavController(requireActivity(), R.id.onBoardFragment);
-                            navController.navigateUp();
                             Log.e("TAG", "onComplete: ");
-                            // Update UI
+                            Navigation.findNavController(requireView()).navigate(R.id.onBoardFragment);
                         } else {
-                            // Sign in failed, display a message and update the UI
+                            binding.code.setError("Некорректный код");
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
                             }
                         }
                     }

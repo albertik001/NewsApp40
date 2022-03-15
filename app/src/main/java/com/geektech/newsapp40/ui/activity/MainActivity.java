@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         prefs = new Prefs(this);
-        if (prefs.isRegisterShow()) {
+        if (!prefs.isRegisterShow()) {
             navController.navigate(R.id.registerFragment);
         } else if (!prefs.isBoardShow()) {
             navController.navigate(R.id.onBoardFragment);

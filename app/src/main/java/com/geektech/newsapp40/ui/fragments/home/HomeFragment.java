@@ -18,7 +18,6 @@ import com.geektech.newsapp40.databinding.FragmentHomeBinding;
 import java.util.ArrayList;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
-    ArrayList<NewsModel> newsModelArrayList = new ArrayList<>();
     private NewsAdapter newsAdapter;
 
     @Override

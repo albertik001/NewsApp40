@@ -10,15 +10,16 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        app:errorEnabled="true"
         android:id="@+id/name_text_message"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="80dp"
         app:boxStrokeColor="@color/black"
+        app:errorEnabled="true"
         app:hintTextColor="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -31,11 +32,10 @@
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_gravity="center"
         android:paddingVertical="12dp"
-        android:text="Save"
-        android:textAllCaps="false" />
+        android:text="Save" />
 
 </LinearLayout>
