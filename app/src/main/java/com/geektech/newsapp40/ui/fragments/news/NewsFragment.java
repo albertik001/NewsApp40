@@ -72,6 +72,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
                     close();
+                    getData();
                     Toast.makeText(getContext(), "Успешно", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
