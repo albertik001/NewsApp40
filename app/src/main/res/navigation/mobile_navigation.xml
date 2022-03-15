@@ -16,7 +16,11 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.geektech.newsapp40.ui.fragments.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <argument app:argType="com.geektech.newsapp40.data.room.model.NewsModel"
+            android:name="argument_FireData"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -33,7 +37,11 @@
         android:id="@+id/newsFragment"
         android:name="com.geektech.newsapp40.ui.fragments.news.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
     <fragment
         android:id="@+id/onBoardFragment"
         android:name="com.geektech.newsapp40.ui.fragments.onboard.OnBoardFragment"

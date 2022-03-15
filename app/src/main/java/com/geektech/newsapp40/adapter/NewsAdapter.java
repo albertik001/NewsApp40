@@ -54,10 +54,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
     }
 
 
-/*    public void setNewsList(ArrayList<NewsModel> newsList) {
+    public void setNewsList(ArrayList<NewsModel> newsList) {
         this.newsList = newsList;
-        notifyItemInserted(0);
-    }*/
+        notifyDataSetChanged();
+    }
 
     static class CountViewHolder extends RecyclerView.ViewHolder {
         private final ItemNewsBinding binding;
