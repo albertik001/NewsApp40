@@ -64,7 +64,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
         getParentFragmentManager().setFragmentResult("rk_news", bundle);
         App.database.newsDao().insert(news);
     }
-
+//s
     private void saveToFirestore(NewsModel newsModel) {
         db.collection("news")
                 .add(newsModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
