@@ -33,7 +33,6 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
         super.onViewCreated(view, savedInstanceState);
         prefs = new Prefs(requireContext());
         binding.etUsername.setText(prefs.isUsernameProfile());
-
         initListener();
         prefsBase(prefs);
         textListener();
@@ -49,12 +48,12 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                prefs.saveUsernameProfile((binding.etUsername.getText()).toString());
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                prefs.saveUsernameProfile((binding.etUsername.getText()).toString());
             }
         });
     }

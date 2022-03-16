@@ -35,10 +35,12 @@ public class Prefs {
     public String isImageUsers() {
         return preferences.getString("imageUsers", null);
     }
-    public void saveRegisterFragment(){
+
+    public void saveRegisterFragment() {
         preferences.edit().putBoolean("register", false).apply();
     }
-    public boolean isRegisterShow(){
+
+    public boolean isRegisterShow() {
         return preferences.getBoolean("register", true);
     }
 

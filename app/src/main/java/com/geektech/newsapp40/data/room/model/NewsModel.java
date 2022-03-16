@@ -22,6 +22,9 @@ public class NewsModel implements Serializable {
         this.createdAt = createdAt;
         this.description = description;
     }
+    public NewsModel(){
+
+    }
 
     public int getId() {
         return id;
