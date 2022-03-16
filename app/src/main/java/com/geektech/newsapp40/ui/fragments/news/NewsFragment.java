@@ -1,7 +1,6 @@
 package com.geektech.newsapp40.ui.fragments.news;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,19 +12,15 @@ import androidx.navigation.Navigation;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.geektech.newsapp40.R;
-import com.geektech.newsapp40.adapter.DashAdapter;
 import com.geektech.newsapp40.base.BaseFragment;
 import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.databinding.FragmentNewsBinding;
-import com.geektech.newsapp40.ui.fragments.dashboard.DashboardFragment;
-import com.geektech.newsapp40.ui.fragments.home.HomeFragment;
 import com.geektech.newsapp40.utils.app.App;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Query;
 
 import java.util.Objects;
 
@@ -51,7 +46,10 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
                         .repeat(1)
                         .playOn(binding.nameTextMessage);
                 binding.etTitle.setError("Заполните поле и повторите еще раз...");
-            } else save();
+            } else {
+                binding.progressBar.setVisibility(View.VISIBLE);
+                save();
+            }
         });
     }
 
@@ -71,6 +69,7 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
+                    binding.progressBar.setVisibility(View.INVISIBLE);
                     close();
                     Toast.makeText(getContext(), "Успешно", Toast.LENGTH_LONG).show();
                 } else {
@@ -79,31 +78,6 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
             }
         });
 
-    }
-
-    private void getData() {
-        db.collection("news")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                NewsModel model = document.toObject(NewsModel.class);
-                                model.getCreatedAt();
-                                model.getDescription();
-                                model.getTitle();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("key", model);
-                                getParentFragmentManager().setFragmentResult("rk_key", bundle);
-                                return;
-                            }
-                        } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
     }
 
     private void close() {
