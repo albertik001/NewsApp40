@@ -13,10 +13,8 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.base.BaseFragment;
-import com.geektech.newsapp40.data.Prefs;
+import com.geektech.newsapp40.data.settings.Prefs;
 import com.geektech.newsapp40.databinding.FragmentProfileBinding;
-
-import java.util.Objects;
 
 
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding> {

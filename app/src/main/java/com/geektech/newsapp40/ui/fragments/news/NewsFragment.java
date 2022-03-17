@@ -57,9 +57,9 @@ public class NewsFragment extends BaseFragment<FragmentNewsBinding> {
         String text = Objects.requireNonNull(binding.etTitle.getText()).toString();
         NewsModel news = new NewsModel(text, System.currentTimeMillis(), "ALbert");
         saveToFirestore(news);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("news", news);
-        getParentFragmentManager().setFragmentResult("rk_news", bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("news", news);
+//        getParentFragmentManager().setFragmentResult("rk_news", bundle);
         App.database.newsDao().insert(news);
     }
 

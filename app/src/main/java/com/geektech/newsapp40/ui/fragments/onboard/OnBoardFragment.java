@@ -13,7 +13,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.adapter.BoardAdapter;
 import com.geektech.newsapp40.base.BaseFragment;
-import com.geektech.newsapp40.data.Prefs;
+import com.geektech.newsapp40.data.room.model.NewsModel;
+import com.geektech.newsapp40.data.settings.Prefs;
 import com.geektech.newsapp40.databinding.FragmentOnBoardBinding;
 import com.geektech.newsapp40.utils.interfaces.OnClick;
 import com.geektech.newsapp40.ui.animate.ZoomOutPageTransformer;
@@ -52,7 +53,7 @@ public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implem
                     binding.skipped.setVisibility(View.GONE);
                 } else {
                     binding.skipped.setVisibility(View.VISIBLE);
-                    binding.skipped.setOnClickListener(view1 -> onClick());
+                    binding.skipped.setOnClickListener(view1 -> onClick(null));
                 }
             }
         });
@@ -68,8 +69,9 @@ public class OnBoardFragment extends BaseFragment<FragmentOnBoardBinding> implem
     }
 
 
+
     @Override
-    public void onClick() {
+    public void onClick(NewsModel newsModel) {
         prefs.saveBoardState();
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.navigateUp();

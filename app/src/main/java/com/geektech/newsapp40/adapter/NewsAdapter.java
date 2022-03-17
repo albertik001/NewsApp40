@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.databinding.ItemNewsBinding;
+import com.geektech.newsapp40.utils.interfaces.OnClick;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +22,13 @@ import java.util.Locale;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolder> {
     @SuppressLint("StaticFieldLeak")
     public static Context context;
-    ArrayList<NewsModel> newsList = new ArrayList<>();
+    static ArrayList<NewsModel> newsList = new ArrayList<>();
+    static OnClick onClickInterfaces;
+
+    public NewsAdapter(OnClick onClickInterfaces) {
+        this.onClickInterfaces = onClickInterfaces;
+    }
+
 
     @NonNull
     @Override
@@ -30,9 +37,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
         return new CountViewHolder(ItemNewsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull CountViewHolder holder, int position) {
         holder.bind(newsList.get(position));
+
 
     }
 
@@ -41,11 +50,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
         return newsList.size();
     }
 
-/*    public void addItem(NewsModel news) {
-        newsList.add(0, news);
-        notifyItemInserted(0);
-
-    }*/
+//    public void addItem(NewsModel news) {
+//        newsList.add(0, news);
+//        notifyItemInserted(0);
+//
+//    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void addItems(List<NewsModel> newsModelList) {
@@ -54,10 +63,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
     }
 
 
-    public void setNewsList(ArrayList<NewsModel> newsList) {
-        this.newsList = newsList;
-        notifyDataSetChanged();
-    }
+//    public void setNewsList(ArrayList<NewsModel> newsList) {
+//        this.newsList = newsList;
+//        notifyDataSetChanged();
+//    }
 
     static class CountViewHolder extends RecyclerView.ViewHolder {
         private final ItemNewsBinding binding;
@@ -73,11 +82,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.CountViewHolde
             String date = String.valueOf(simpleDateFormat.format(newsModel.getCreatedAt()));
             binding.tvTimeItem.setText(date);
             binding.tvItemSave.setText(newsModel.getTitle());
-            if (getAdapterPosition() % 2 == 0) {
+            if (getAbsoluteAdapterPosition() % 2 == 0) {
                 binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
             } else {
                 binding.itemNewsItem.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray));
             }
+            itemView.setOnLongClickListener(view -> {
+                onClickInterfaces.onClick(newsModel);
+                return true;
+            });
         }
     }
 
