@@ -11,6 +11,7 @@ import com.geektech.newsapp40.adapter.NewsAdapter;
 import com.geektech.newsapp40.base.BaseFragment;
 import com.geektech.newsapp40.data.room.model.NewsModel;
 import com.geektech.newsapp40.databinding.FragmentDashboardBinding;
+import com.geektech.newsapp40.utils.interfaces.OnClick;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,7 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
+public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> implements OnClick {
     ArrayList<NewsModel> newsModelArrayList;
     private NewsAdapter dashAdapter;
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -62,10 +63,14 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     }
 
     private void setAdapterList() {
-        dashAdapter = new NewsAdapter();
+        dashAdapter = new NewsAdapter(this);
         binding.recyclerDashboard.setAdapter(dashAdapter);
         dashAdapter.addItems(newsModelArrayList);
     }
 
 
+    @Override
+    public void onClick(NewsModel newsModel) {
+        
+    }
 }

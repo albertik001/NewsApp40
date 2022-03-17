@@ -1,16 +1,18 @@
-package com.geektech.newsapp40;
+package com.geektech.newsapp40.ui.fragments.register;
 
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import com.geektech.newsapp40.R;
 import com.geektech.newsapp40.base.BaseFragment;
-import com.geektech.newsapp40.data.Prefs;
+import com.geektech.newsapp40.data.settings.Prefs;
 import com.geektech.newsapp40.databinding.FragmentRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,13 +24,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
 public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     private static Prefs prefs;
     private static PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-    FirebaseAuth mAuth;
+    private static FirebaseAuth mAuth;
+    private static FirebaseUser user;
+    CountryCodePicker ccp;
 
     @Override
     public FragmentRegisterBinding bind() {
@@ -50,11 +55,14 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
 
     private void initListener() {
         binding.login.setOnClickListener(view1 -> {
+            String countryCodeWithPlus = binding.ccp.getSelectedCountryCodeWithPlus();
             String phone = binding.number.getText().toString().trim();
+            ccp.setNumberAutoFormattingEnabled(true);
             if (TextUtils.isEmpty(phone)) {
                 binding.number.setError("Поле пустое");
             } else {
-                register(phone);
+                register(countryCodeWithPlus + phone);
+                Log.e("TAG", "initListener: " + countryCodeWithPlus + phone);
                 binding.login.setVisibility(View.GONE);
                 binding.okey.setVisibility(View.VISIBLE);
             }
@@ -113,7 +121,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "signInWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
+                            user = task.getResult().getUser();
                             prefs.saveRegisterFragment();
                             Log.e("TAG", "onComplete: ");
                             Navigation.findNavController(requireView()).navigate(R.id.onBoardFragment);

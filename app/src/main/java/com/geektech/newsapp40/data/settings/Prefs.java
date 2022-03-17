@@ -1,4 +1,4 @@
-package com.geektech.newsapp40.data;
+package com.geektech.newsapp40.data.settings;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

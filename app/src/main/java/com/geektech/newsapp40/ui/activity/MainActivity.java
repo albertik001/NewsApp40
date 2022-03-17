@@ -15,7 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.geektech.newsapp40.R;
-import com.geektech.newsapp40.data.Prefs;
+import com.geektech.newsapp40.data.settings.Prefs;
 import com.geektech.newsapp40.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
